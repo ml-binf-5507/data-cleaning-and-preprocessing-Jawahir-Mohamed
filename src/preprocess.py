@@ -85,8 +85,14 @@ def detect_feature_types(df: pd.DataFrame, target: str, id_cols: List[str]) -> T
     # 3. Identify numeric columns (dtype in [int, float]):
     #    num_cols = [c for c in feature_cols if df[c].dtype in ['int64', 'float64']]
     # 4. Return (cat_cols, num_cols)
-    pass
-
+   
+    feature_cols = [c for c in df.columns if c not in id_cols and c != target]
+    cat_cols = [c for c in feature_cols if df[c].dtype == 'object']
+    num_cols = [c for c in feature_cols if df[c].dtype in ['int64', 'float64']]
+    
+    
+    return cat_cols, num_cols
+  
 
 # ============================================================================
 # STEP 3: ENCODE CATEGORICAL COLUMNS
@@ -121,7 +127,24 @@ def encode_categorical(df: pd.DataFrame, cat_cols: List[str]) -> Tuple[pd.DataFr
     # HINT: When called in run_preprocessing(), you encode TRAIN first to get column names,
     # then when encoding TEST, you should only create those same columns (don't add new ones).
     # You can use pd.get_dummies(..., columns=...) or post-process to match columns.
-    pass
+    
+    df_copy = df.copy()
+    
+    encoded_column_names = []
+    
+    for col in cat_cols:
+        if col in df_copy.columns:
+            
+            encoded = pd.get_dummies(df_copy[col], prefix=col, dtype=int)
+            # Keep track of the new column names
+            encoded_column_names.extend(encoded.columns.tolist())
+            df_copy.drop(col, axis=1, inplace=True)
+            
+            # Add the new encoded columns
+            df_copy = pd.concat([df_copy, encoded], axis=1)
+
+    
+    return df_copy, encoded_column_names
 
 
 # ============================================================================
@@ -148,8 +171,28 @@ def scale_numeric(df: pd.DataFrame, num_cols: List[str]) -> Tuple[pd.DataFrame, 
     #    b. Calculate mean and std: mean = col.mean(), std = col.std()
     #    c. Standardize: (col - mean) / std
     # 3. Return (scaled_df, means_dict, stds_dict)
-    pass
+    df_scaled = df.copy()
 
+    means = {}
+    stds = {}
+    for col in num_cols:
+        col_data = df_scaled[col]. fillna(df_scaled[col].median())
+
+        #Calculate mean and std
+        mean = col_data.mean()
+        std = col_data.std()
+
+        means[col] = float(mean)
+        stds[col]= float(std)
+
+        if std != 0:
+            df_scaled[col] = (col_data - mean) / std
+        else:
+            df_scaled[col] = 0
+
+    return df_scaled, means, stds
+
+    
 
 # ============================================================================
 # MAIN PIPELINE (FULLY IMPLEMENTED - YOU DON'T NEED TO EDIT THIS!)
