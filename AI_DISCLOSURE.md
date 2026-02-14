@@ -24,29 +24,26 @@ Do NOT:
 
 **Did you use any AI tools to help with this assignment?**
 
-_____ Yes     _____ No
+___X__ Yes     _____ No
 
 **If yes, please tell us:**
 
 1. **What tools did you use?** (e.g., ChatGPT, Claude, GitHub Copilot)
    
-   _________________________________________________________________
+   ____ChatGPT_____________________________________________________________
 
 2. **What specific things did you ask them to do?** (Be specific)
    
-   _________________________________________________________________
-   
-   _________________________________________________________________
+Asked for explanations of data preprocessing concepts. Also, I asked for help debugging python and pandas errors specificly file loading issues, dtype errors, pytest failures.
+AI was used for feature scaling, which I modified after understanding it.
 
-3. **How much of your final code came from AI vs. your own work?** (e.g., "AI gave me the formula, I wrote the loop" or "AI helped me debug an error")
-   
-   _________________________________________________________________
-   
-   _________________________________________________________________
+3. **How much of your final code came from AI vs. your own work?** (e.g., "AI gave me the formula, I wrote the loop" or "AI helped me debug an error").
 
+AI helped me in identify errors, but I wrote and modified the final code myself.
+   
 4. **Can you explain your code?** (Can you walk through what each function does and why you wrote it that way?)
    
-   _____ Yes, I can explain it well
+   ___X__ Yes, I can explain it well
    
    _____ Mostly, but I have some questions
    
@@ -54,11 +51,7 @@ _____ Yes     _____ No
 
 **Additional comments:**
 
-_________________________________________________________________
-
-_________________________________________________________________
-
----
+AI was used as a learning and debugging tool. It helped save time and was used responsibly and with caution to support understanding rather than replace my own work.
 
 ## Why This Matters
 
